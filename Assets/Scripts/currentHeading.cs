@@ -13,6 +13,18 @@ public class currentHeading : MonoBehaviour
 	{
 		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
 		float shiprotate = ship.GetComponent< shipControl> ().angle;
-		transform.Rotate (0, shiprotate, 0);
+        if (ship.GetComponent<shipControl>().isshipRotate)
+        {
+            if (ship.GetComponent<shipControl>().isleft)
+            {
+                transform.Rotate(0, -2, 0);
+            } 
+            else 
+            {
+                transform.Rotate(0, 2, 0);
+            }
+           
+        }
+		
 	}
 }
