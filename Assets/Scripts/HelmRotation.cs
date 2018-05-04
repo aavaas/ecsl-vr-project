@@ -16,7 +16,7 @@ public class HelmRotation : MonoBehaviour {
 	{
 		Vector3 eulerAngles = transform.rotation.eulerAngles;
 		zRotation = eulerAngles.z;
-		if (zRotation != previousAngle) 
+		if (zRotation - previousAngle>.5) 
 		{
 			isHelmRotating = true;
 		}
@@ -27,14 +27,14 @@ public class HelmRotation : MonoBehaviour {
 		if (zRotation < previousAngle)
 		{
 			isleft = true;
-            isright = false;
-			print ("left");
+			isright = false;
+			//print ("left");
 		} 
 		else if(zRotation > previousAngle)
 		{
-			print (" right");
+			isleft = false;
 			isright = true;
-            isleft = false;
+			//print (" right");
 		}
 		previousAngle = zRotation;
 		//print ("The value of Zrotation: "+zRotation+"  "+ isHelmRotating);

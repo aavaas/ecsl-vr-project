@@ -1,65 +1,126 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Valve.VR.InteractionSystem;
 
 public class shipControl : MonoBehaviour {
 
-	// Use this for initialization
-	private float torque = 1500f;
-	private float acceleration = 500f;
+	//Getting the target angle from the target pointer
+	public GameObject pointerTarget;
 	public GameObject helm;
-	public float angle;
-	public bool isshipRotate;
+	// for ship Rotation
 	private float previousAngle;
-	private float targetAgnel;
-    private float translation;
-    public Vector2 touchValue;
-    private bool controllerInput;
-    public GameObject controller;
-    private Vector2 point;
-    public bool isleft;
-
-    void Update ()
-     {
-
-        point = controller.GetComponent<controller>().touchValue;
-        print("The vertical translation is: " +translation);
-        if (translation>0)
-        {
-           // transform.position += Vector3.forward * Time.deltaTime * 1000;
-        }
-        Vector3 objectPosition = transform.position;
-		if (helm.GetComponent< HelmRotation> ().isHelmRotating)
-		{
-			//targetAgnel = controller.GetComponent< HelmRotation> ().zRotation;
+	private float targetAngle;
+	//for currentPointer
+	public bool isshipRotate;
+	public float yRotationShip;
+	public GameObject currentHeading;
+	private float currentangle;
+	// for speed of the ship
+	public GameObject headSlider;
+	private float value;
+	private float acceleration = 1;
+	private float velocity = 0;
+	private bool targetactive = false;
+	private float diffangle;
+	void Update ()
+	{
+		// for speed of the ship
+		value = headSlider.GetComponent< sliderHead> ().value;
+		//print ("The value of value is: " + value);
+		if (value > .25f && value < .47f) {
+			//print ("1/3 speed");
+			if (velocity < 7) {
+				velocity = velocity + acceleration * Time.deltaTime;
+			}
+			if (velocity >= 7) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
+		} 
+		if (value > .46f && value < .61) {
+			//print ("2/3 speed");
+			if (velocity < 14) {
+				velocity = velocity + acceleration * Time.deltaTime;
+			}
+			if (velocity >= 14) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
 		}
-        Vector3 eulerAngles = transform.rotation.eulerAngles;
-        angle = eulerAngles.z;
-        /////////////////////////////////////////////////////
-        if(controller.GetComponent<controller>().controllerInput)
-        {
-            if (point.y > 0) {
-                transform.position += Vector3.forward * Time.deltaTime * 1000;
-            }
-            if (point.x > 0) {
-                transform.Rotate(0, 2, 0);
-                isleft = false;
-            } else {
-                transform.Rotate(0, -2, 0);
-                isleft = true;
-            }
-        }
-       
-        if (angle != previousAngle)
-        {
-            isshipRotate = true;
-        } else 
-        {
-            isshipRotate = false;
-        }
-        angle = previousAngle;
-    }
+		if (value > .60f && value < .80f) {
+			//print ("standard speed");
+			if (velocity < 20) {
+				velocity = velocity + acceleration * Time.deltaTime;
+			}
+			if (velocity >= 20) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
+		}
+		if (value > .79f && value < .95f) {
+			//print ("Full speed");
+			if (velocity < 25) {
+				velocity = velocity + acceleration * Time.deltaTime;
+			}
+			if (velocity >= 25) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
+		}
+		if (value > .94f && value <= 1) {
+			//print ("Fnalk speed");
+			if (velocity < 30) {
+				velocity = velocity + acceleration * Time.deltaTime;
+			}
+			if (velocity >= 30) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
+		}
+		if (value < .22f) {
+			if (velocity > 0) {
+				velocity = velocity - acceleration * Time.deltaTime;
+			}
+			transform.position += Vector3.forward * Time.deltaTime * velocity;
+		}
+		//print ("The value of velocity is: " + velocity);
+		/////////////// for Rotation
+		Vector3 eulerAngles = transform.rotation.eulerAngles;
+		yRotationShip = eulerAngles.y;
+		//print ("The current heading angle is" + yRotationShip); 
+		//Vector3 objectPosition = transform.position;
+		if (helm.GetComponent< HelmRotation> ().isHelmRotating) {
+			targetAngle = pointerTarget.GetComponent<DesiredHeading> ().yRotation;
+			targetactive = true;
+		}
+		currentangle = currentHeading.GetComponent< RotateCurrentHeading> ().yRotationCurrentHeading;
+	//	print (" The desired heading angle is" + targetAngle);
+		//print (" The current heading angle is" + yRotationShip);
+		//print (" Thecurrent  heading pointer angle is " + currentangle);
+		diffangle = yRotationShip-targetAngle;
+		print (" The differnece  angle is" +diffangle );
+		if (targetactive)
+		{
+			if (targetAngle - yRotationShip > 2) 
+			{
+				transform.Rotate(0,.002f,0);
 
-    
+			} else if (targetAngle - yRotationShip < 3)
+			{
+				transform.Rotate(0,-.002f,0);
+			}
+		} 
+		else 
+		{
+			transform.Rotate (0, 0, 0);
+			targetactive = false;
+		}
+		if (yRotationShip != previousAngle) {
+			isshipRotate = true;
+		} else {
+			isshipRotate = false;
+		}
+		previousAngle = yRotationShip;
+	}
 }
