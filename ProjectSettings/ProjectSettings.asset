@@ -717,8 +717,8 @@ PlayerSettings:
     Unity_Ads: 0
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 67091d5e-23e3-48a2-a4df-e384bc7ddfde
-  projectName: Naval Bridge Simulation (1)
+  cloudProjectId: e5e21d8a-de5f-449d-bb92-eaf2b2a37c58
+  projectName: Naval Bridge Simulation (2)
   organizationId: avsgaj
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
