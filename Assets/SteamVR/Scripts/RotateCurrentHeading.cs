@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateCurrentHeading : MonoBehaviour {
-
-	// Use this for initialization
-	public GameObject ship;
-	public float yRotationCurrentHeading;
-	// Update is called once per frame
+	public float currentYRotation;
+	public GameObject CurrentHeading;
+	public GameObject Ship;
+	private float shipYRotation;
+	private float previousAngle =0f;
 	void Update () 
 	{
-		Vector3 eulerAngles = transform.rotation.eulerAngles;
-		yRotationCurrentHeading = eulerAngles.y;
-		//var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-		float shipZrotate = ship.GetComponent< shipControl> ().yRotationShip;
-		if (ship.GetComponent< shipControl> ().isshipRotate)
-		{
-			transform.Rotate(0,.02f,0);
-		}
+		currentYRotation = transform.localEulerAngles.y;
+		shipYRotation = Ship.GetComponent<shipControl>().shipYRotation;
+		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, shipYRotation,transform.localEulerAngles.z);
+
 	}
 }

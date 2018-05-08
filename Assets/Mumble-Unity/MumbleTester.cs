@@ -21,7 +21,7 @@ public class MumbleTester : MonoBehaviour {
     private MumbleClient _mumbleClient;
     public bool ConnectAsyncronously = true;
     public string HostName = "sf.guildbit.com";
-    public int Port = 50002;
+    public int Port = 50004;
     public string Username = "ExampleUser";
     public string Password = "TolerantSaria";
     public string ChannelToJoin = "";

@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Valve.VR.InteractionSystem;
 public class HelmRotation : MonoBehaviour {
 
 	// Use this for initialization
-	public float zRotation;
+	public float helmZAngle;
 	private float previousAngle = 0;
 	public bool isHelmRotating = false;
-	public bool isleft;
-	public bool isright;
+	public bool isHelmleft;
+	public bool isHelmright;
+	public GameObject helm;
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		Vector3 eulerAngles = transform.rotation.eulerAngles;
-		zRotation = eulerAngles.z;
-		if (zRotation - previousAngle>.5) 
+		helmZAngle = transform.localEulerAngles.z;
+		//float outAngle =  helm.GetComponent<CircularDrive> ().outAngle; 
+		if (helmZAngle != previousAngle) 
 		{
 			isHelmRotating = true;
 		}
@@ -24,19 +25,19 @@ public class HelmRotation : MonoBehaviour {
 		{
 			isHelmRotating = false;
 		}
-		if (zRotation < previousAngle)
+		if (helmZAngle < previousAngle)
 		{
-			isleft = true;
-			isright = false;
+			isHelmleft = true;
+			isHelmright = false;
 			//print ("left");
 		} 
-		else if(zRotation > previousAngle)
+		else if(helmZAngle > previousAngle)
 		{
-			isleft = false;
-			isright = true;
+			isHelmleft = false;
+			isHelmright = true;
 			//print (" right");
 		}
-		previousAngle = zRotation;
+		previousAngle = helmZAngle;
 		//print ("The value of Zrotation: "+zRotation+"  "+ isHelmRotating);
 	}
 }
