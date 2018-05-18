@@ -12,6 +12,8 @@ public class RotateCurrentHeading : MonoBehaviour {
 	{
 		currentYRotation = transform.localEulerAngles.y;
 		shipYRotation = Ship.GetComponent<shipControl>().shipYRotation;
+        if (shipYRotation != 0)
+            shipYRotation = 360 - shipYRotation;
 		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, shipYRotation,transform.localEulerAngles.z);
 
 	}
