@@ -12,7 +12,7 @@ using Valve.VR.InteractionSystem;
 public class shipControl : MonoBehaviour {
 
 	// for ship movement
-	public GameObject headSlider;
+	public LinearMapping headSlider;
     public GameObject world;
 	private float value;
 	private float acceleration = 1;
@@ -62,14 +62,16 @@ public class shipControl : MonoBehaviour {
 
         // for movement of the ship
 
+        PlayerType currentType = TypeButton.Type;
+
         //server
-        if (world.GetComponent<displaySpeed>().isHelmClicked)
+        if (currentType == PlayerType.Helm)
         {
-            value = headSlider.GetComponent< sliderHead> ().value;
+            value = headSlider.value;
             targetYRotation = targetRotation.GetComponent<RotateDesiredHeading> ().targetYRotation;
         }
         //client
-        if (world.GetComponent<displaySpeed>().isCaptainClicked)
+        if (currentType == PlayerType.Captain)
         {
             value = world.GetComponent<displaySpeed>().sliderValue;
             targetYRotation = world.GetComponent<displaySpeed>().desiredAngle;

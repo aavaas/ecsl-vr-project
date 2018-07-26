@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using Valve.VR.InteractionSystem;
 public class displaySpeed : NetworkBehaviour {
 
     // Use this for initialization
     public GameObject world;
     public Text currentTextSpeed;
     public Text desiredTextSpeed;
-    public GameObject header;
+    public LinearMapping header;
 	public GameObject desiredHeader;
-    public bool isHelmClicked;
-    public bool isCaptainClicked;
+    //public bool isHelmClicked;
+    //public bool isCaptainClicked;
 
     public float currentSpeed;
     public float desiredSpeed;
@@ -28,14 +29,17 @@ public class displaySpeed : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        isHelmClicked = helmButton.isHelm;
-        isCaptainClicked = CaptainButton.isCaptain;
-        print("The helm is clicked " + isHelmClicked);
-        print("The captain is clicked" + isCaptainClicked);
+        //isHelmClicked = helmButton.isHelm;
+        //isCaptainClicked = CaptainButton.isCaptain;
+
+        //print("The helm is clicked " + isHelmClicked);
+        //print("The captain is clicked" + isCaptainClicked);
+
         //only on server
-        if (isHelmClicked)
+        if (TypeButton.Type == PlayerType.Helm)
         {
-            sliderValue = header.GetComponent<sliderHead>().value;
+            // this only works if the helm is the server!
+            sliderValue = header.value;
             desiredAngle = desiredHeader.GetComponent<RotateDesiredHeading>().targetYRotation;
         }
   

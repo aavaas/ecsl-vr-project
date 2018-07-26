@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 
 public class ButtonRadarObject
@@ -42,6 +43,7 @@ public class ButtonRadar : MonoBehaviour
     public static void RegisterRadarObject(GameObject o, Button i)
     {
         Button button = Instantiate(i);
+        button.gameObject.AddComponent<Interactable>();
         radObjects.Add(new ButtonRadarObject() { owner = o, btn = button });
     }
 

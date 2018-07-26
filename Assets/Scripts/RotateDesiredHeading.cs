@@ -18,7 +18,7 @@ public class RotateDesiredHeading : MonoBehaviour {
 
 		targetYRotation = transform.localEulerAngles.y;
 		helmZAngle =  helm.GetComponent< HelmRotation> ().helmZAngle; 
-		if (helm.GetComponent< HelmRotation> ().isHelmRotating && world.GetComponent<displaySpeed>().isHelmClicked)
+		if (helm.GetComponent< HelmRotation> ().isHelmRotating && TypeButton.Type == PlayerType.Helm)
 		{
 			if (helm.GetComponent< HelmRotation> ().isHelmleft) 
 			{

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class helmButton : MonoBehaviour {
-    public static bool isHelm;
+    //public static bool isHelm = false;
+
+    /*
+
 	// Use this for initialization
 	void Start () {
         isHelm = false;
@@ -13,9 +16,11 @@ public class helmButton : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    */
+
     public void onClickHelm()
     {
-        isHelm = true;
-		print("ddddddddddddddddddddddddddd");
+        //isHelm = !isHelm;
     }
 }
