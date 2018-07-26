@@ -24,8 +24,9 @@ public class IKControl : NetworkBehaviour {
     }
 
     public override void OnStartLocalPlayer() {               
-        GameObject.Find("[CameraRig]").transform.position = this.transform.position;
+        //GameObject.Find("[CameraRig]").transform.position = this.transform.position;
         //this.gameObject.transform.SetParent(GameObject.Find("[CameraRig]").transform);
+        transform.position = GameObject.Find("[CameraRig]").transform.position;
     }
 
     private void Update() {
@@ -36,7 +37,7 @@ public class IKControl : NetworkBehaviour {
 
         if (localleftHandObj == null) {
             localleftHandObj = GameObject.Find("Hand1").transform;
-			print ("found hand");
+            Debug.Log("Found hand!", localleftHandObj);
         } else {
             leftHandObj.SetPositionAndRotation(localleftHandObj.transform.position, localleftHandObj.transform.rotation);
             leftHandObj.Translate(new Vector3(0, 0, -0.1f));
@@ -50,6 +51,7 @@ public class IKControl : NetworkBehaviour {
         if (localheadObj == null) {
             localheadObj = GameObject.Find("VRCamera").transform;
         } else {
+
             headObj.SetPositionAndRotation(localheadObj.transform.position, localheadObj.transform.rotation);            
         }
 
