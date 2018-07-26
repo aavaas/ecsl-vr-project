@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using Valve.VR.InteractionSystem;
 
 public enum PlayerType {None, Helm, Captain };
 
@@ -11,20 +13,20 @@ public class TypeButton : MonoBehaviour {
 
     public Text buttonText;
 
-    private bool Hovered;
-
     private void Start()
     {
         UpdateText(Type);
+        //GetComponent<UIElement>().onHandClick.AddListener();
+    }
+
+    public void PressHand(Hand hand)
+    {
+        OnTypeButtonPress();
     }
 
     public void OnTypeButtonPress()
     {
-        if(!Hovered)
-        {
-            return;
-        }
-
+        //print("Pressed!");
         int index = (int)Type;
         Type = (PlayerType)(++index % System.Enum.GetNames(typeof(PlayerType)).Length);
         UpdateText(Type);
@@ -34,12 +36,4 @@ public class TypeButton : MonoBehaviour {
     {
         buttonText.text = _type.ToString();
     }
-
-    // hovering allowes one hand to hover and the other to click
-        // needs same hand hover and click, but good for a temporary solution
-    public void Hover(bool hovered)
-    {
-        Hovered = hovered;
-    }
-	
 }
