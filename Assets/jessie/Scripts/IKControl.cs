@@ -52,11 +52,12 @@ public class IKControl : NetworkBehaviour {
             localheadObj = GameObject.Find("VRCamera").transform;
         } else {
 
-            headObj.SetPositionAndRotation(localheadObj.transform.position, localheadObj.transform.rotation);            
+            headObj.SetPositionAndRotation(localheadObj.transform.position, localheadObj.transform.rotation);
+            gameObject.transform.position = new Vector3(localheadObj.transform.position.x, localheadObj.transform.position.y - 1.57f, localheadObj.transform.position.z);
         }
 
         
-        gameObject.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y-1.57f, Camera.main.transform.position.z);
+        //gameObject.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y-1.57f, Camera.main.transform.position.z);
 
     }
 
