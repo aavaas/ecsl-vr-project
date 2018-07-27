@@ -43,7 +43,7 @@ public class ButtonRadar : MonoBehaviour
     public static void RegisterRadarObject(GameObject o, Button i)
     {
         Button button = Instantiate(i);
-        button.gameObject.AddComponent<Interactable>();
+        //button.gameObject.AddComponent<UIElement>();
         radObjects.Add(new ButtonRadarObject() { owner = o, btn = button });
     }
 
